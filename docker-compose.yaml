@@ -9,7 +9,7 @@ services:
         grafana_version: ${GRAFANA_VERSION:-10.0.3}
     environment:
       GF_INSTALL_PLUGINS: https://storage.googleapis.com/grafana-llm-app/grafana-llm-app-0.1.0.zip; grafana-llm-app
-      OPENAI_API_KEY: $OPENAI_API_KEY
+      OPENAI_API_KEY: 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
     ports:
       - 3000:3000/tcp
     volumes:
