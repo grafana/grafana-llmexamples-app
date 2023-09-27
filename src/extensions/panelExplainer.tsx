@@ -46,7 +46,10 @@ const ExplainPanelModal = ({ context }: ExplainPanelModalProps) => {
       // Accumulate the stream chunks into a single string.
       .pipe(llms.openai.accumulateContent())
       // Subscribe to the stream and update the state for each returned value.
-      .subscribe(setStreamState);
+      .subscribe({
+        next: setStreamState,
+        error: console.error,
+      });
     return { enabled: true };
   });
   if (state.loading || streamState === '') {
