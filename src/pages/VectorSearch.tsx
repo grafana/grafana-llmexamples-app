@@ -23,7 +23,7 @@ export function VectorSearch(): JSX.Element {
 
   const { loading, error, value } = useAsync(async () => {
     const value = {
-      enabled: await llms.vector.enabled(),
+      enabled: (await llms.vector.enabled()).ok,
     };
     if (!value.enabled) {
       return value;
