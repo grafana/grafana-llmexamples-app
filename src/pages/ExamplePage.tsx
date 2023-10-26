@@ -22,7 +22,8 @@ export function ExamplePage() {
   const { loading, error, value } = useAsync(async () => {
     // Check if the LLM plugin is enabled and configured.
     // If not, we won't be able to make requests, so return early.
-    const enabled = await llms.openai.enabled();
+    const openAIHealthDetails = await llms.openai.enabled();
+    const enabled = openAIHealthDetails.ok;
     if (!enabled) {
       return { enabled };
     }
