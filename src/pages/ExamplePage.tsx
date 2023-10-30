@@ -13,6 +13,7 @@ export function ExamplePage() {
   const [message, setMessage] = useState('');
   // The latest reply from the LLM.
   const [reply, setReply] = useState('');
+  const [streamError, setStreamError] = useState('');
 
   const [useStream, setUseStream] = useState(false);
 
@@ -71,7 +72,10 @@ export function ExamplePage() {
       // Subscribe to the stream and update the state for each returned value.
       return {
         enabled,
-        stream: stream.subscribe(setReply),
+        stream: stream.subscribe({
+          next: setReply,
+          error: (e) => setStreamError(String(e)),
+        }),
       };
     }
   }, [message]);
@@ -97,6 +101,7 @@ export function ExamplePage() {
           <div>{loading ? <Spinner /> : reply}</div>
           <div>{started ? "Response is started" : "Response is not started"}</div>
           <div>{finished ? "Response is finished" : "Response is not finished"}</div>
+          {streamError && <div>Error: {streamError}</div>}
         </>
       ) : (
         <div>LLM plugin not enabled.</div>
