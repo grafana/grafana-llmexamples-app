@@ -6,20 +6,53 @@ services:
     build:
       context: ./.config
       args:
-        grafana_version: ${GRAFANA_VERSION:-10.0.3}
+        grafana_version: ${GRAFANA_VERSION:-latest}
     environment:
-      GF_INSTALL_PLUGINS: grafana-llm-app
+      # GF_INSTALL_PLUGINS: grafana-llm-app
       OPENAI_API_KEY: $OPENAI_API_KEY
+      VECTOR_STORE_BASIC_AUTH_PASSWORD: $VECTOR_STORE_BASIC_AUTH_PASSWORD
+      VECTOR_EMBED_BASIC_AUTH_PASSWORD: $VECTOR_EMBED_BASIC_AUTH_PASSWORD
+      GF_FEATURE_TOGGLES_ENABLE: prometheusPromQAIL
     ports:
       - 3000:3000/tcp
     volumes:
       - ./dist:/var/lib/grafana/plugins/grafana-llmexamples-app
       - ./provisioning:/etc/grafana/provisioning
+      - ../grafana-llm-app/dist:/var/lib/grafana/plugins/grafana-llm-app
 
   qdrant:
     image: qdrant/qdrant
     volumes:
       - qdrant-storage:/qdrant/storage
 
+  db:
+    image: ankane/pgvector:v0.5.1
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: mysecretpassword
+      POSTGRES_PORT: 5432
+      POSTGRES_DB: postgres
+  vectorapi:
+    image: grafana/vectorapi
+    volumes:
+      - sentence-transformers:/app/.sentence_transformers
+    environment:
+      DEFAULT_EMBEDDING_MODEL: BAAI/bge-small-en-v1.5
+      POSTGRES_HOST: db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: mysecretpassword
+      POSTGRES_PORT: 5432
+      POSTGRES_DB: postgres
+      VECTORAPI_STORE_SCHEMA: vector
+      ECHO_SQL: true
+      PORT: 8889
+    ports:
+      - 8889:8889
+    depends_on:
+      - db
+
 volumes:
+  sentence-transformers:
   qdrant-storage:
