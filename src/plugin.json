@@ -42,5 +42,12 @@
   "dependencies": {
     "grafanaDependency": ">=9.5.2",
     "plugins": []
-  }
+  },
+  "extensions": [
+    {
+      "extensionPointId": "grafana/dashboard/panel/menu",
+      "title": "Explain this panel",
+      "type": "link"
+    }
+  ]
 }
