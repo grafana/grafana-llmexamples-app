@@ -1,5 +1,5 @@
 {
-  "$schema": "https://raw.githubusercontent.com/grafana/grafana/master/docs/sources/developers/plugins/plugin.schema.json",
+  "$schema": "https://raw.githubusercontent.com/grafana/grafana/main/docs/sources/developers/plugins/plugin.schema.json",
   "type": "app",
   "name": "LLM Examples",
   "id": "grafana-llmexamples-app",
@@ -42,5 +42,12 @@
   "dependencies": {
     "grafanaDependency": ">=9.5.2",
     "plugins": []
-  }
+  },
+  "extensions": [
+    {
+      "extensionPointId": "grafana/dashboard/panel/menu",
+      "title": "Explain this panel",
+      "type": "link"
+    }
+  ]
 }
