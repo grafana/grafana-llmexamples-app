@@ -17,7 +17,7 @@ services:
       - ./provisioning:/etc/grafana/provisioning
 
   qdrant:
-    image: qdrant/qdrant
+    image: qdrant/qdrant@sha256:b3063c673f3973877c038eeecc392bad5011f072ee7892b56c9a8e204a3bdea9
     volumes:
       - qdrant-storage:/qdrant/storage
 
