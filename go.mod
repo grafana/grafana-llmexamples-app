@@ -64,7 +64,7 @@ require (
 	github.com/unknwon/com v1.0.1 // indirect
 	github.com/unknwon/log v0.0.0-20150304194804-e617c87089d3 // indirect
 	github.com/urfave/cli v1.22.12 // indirect
-	go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc v0.42.0 // indirect
+	go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc v0.46.0 // indirect
 	go.opentelemetry.io/contrib/instrumentation/net/http/httptrace/otelhttptrace v0.42.0 // indirect
 	go.opentelemetry.io/contrib/propagators/jaeger v1.17.0 // indirect
 	go.opentelemetry.io/otel v1.16.0 // indirect
